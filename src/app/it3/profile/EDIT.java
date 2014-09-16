@@ -1,6 +1,7 @@
 package app.it3.profile;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import app.it3.profile.R.string;
 
 public class EDIT extends Activity implements OnClickListener {
@@ -31,7 +33,7 @@ private void kobboon() {
 	E4= (EditText) findViewById(R.id.editText4);
 	E5= (EditText) findViewById(R.id.editText5);
 	E6= (EditText) findViewById(R.id.editText6);
-	
+
 	tv1 = (TextView) findViewById(R.id.textView1115);
 	tv2 = (TextView) findViewById(R.id.textView1);
 	tv3 = (TextView) findViewById(R.id.textView2);
@@ -48,7 +50,7 @@ private void kobboon() {
 public void onClick(View arg0) {
 	// TODO Auto-generated method stub
 	
-	
+	save();
 	switch (arg0.getId()) {
 	case R.id.e1 :
 		
@@ -80,5 +82,58 @@ public void onClick(View arg0) {
 		break;
 	}
 
+	}
+
+	public boolean save() {
+	// TODO Auto-generated method stub
+	
+	final AlertDialog.Builder ab = new AlertDialog.Builder(this);
+	AlertDialog vv = ab.create();
+	
+	if(E1.getText().length()==0){
+		vv.setMessage("Please input Name");
+		E1.requestFocus();
+		return false;
+	}
+	if(E2.getText().length()==0){
+		vv.setMessage("Please input Age");
+		E2.requestFocus();
+		return false;
+	}
+	if(E3.getText().length()==0){
+		vv.setMessage("Please input Brithday");
+		E3.requestFocus();
+		return false;
+	}
+	if(E4.getText().length()==0){
+		vv.setMessage("Please input height");
+		E4.requestFocus();
+		return false;
+	}
+	if(E5.getText().length()==0){
+		vv.setMessage("Please input Weight");
+		E5.requestFocus();
+		return false;
+	}
+	if(E6.getText().length()==0){
+		vv.setMessage("Please input Email");
+		E6.requestFocus();
+		return false;
+	}
+
+	
+	DBcontrol075 dbclass = new DBcontrol075(this);
+	long savedata = dbclass.insertData(E1.getText().toString(),E2.getText().toString(),E3.getText().toString()
+			,E4.getText().toString(),E5.getText().toString(),E6.getText().toString());
+			
+	if (savedata <= 0) {
+		vv.setMessage("Error !!!!");
+		vv.show();
+		return false;
+	}		
+			
+	Toast.makeText(getApplicationContext(), "Add Data Successfully",Toast.LENGTH_SHORT).show();
+	return true;
 }
+
 }

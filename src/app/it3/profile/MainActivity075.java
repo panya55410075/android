@@ -20,6 +20,7 @@ public class MainActivity075 extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.kobboon075);
+		
 	saen();
 	}
 	private void saen() {
